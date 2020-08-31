@@ -1,5 +1,8 @@
 package ar.com.noaa.api.boyas.services;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,15 +14,28 @@ public class BoyaService {
     @Autowired
     BoyaRepository repoBoya;
 
-    public void crearBoya(Boya boya){
+    public void crearBoya(Boya boya) {
         repoBoya.save(boya);
     }
 
-    public Boya crearBoya(double longitudInstalacion, double latitudInstalacion){
+    public Boya crearBoya(double longitudInstalacion, double latitudInstalacion) {
         Boya boya = new Boya();
         boya.setLongitudInstalacion(longitudInstalacion);
         boya.setLatitudInstalacion(latitudInstalacion);
         repoBoya.save(boya);
         return boya;
+    }
+
+    public List<Boya> obtenerBoyas() {
+        return repoBoya.findAll();
+    }
+
+    public Boya buscarPorId(Integer id) {
+        Optional<Boya> opBoya = repoBoya.findById(id);
+
+        if (opBoya.isPresent())
+            return opBoya.get();
+        else
+            return null;
     }
 }

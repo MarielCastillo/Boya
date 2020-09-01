@@ -3,6 +3,8 @@ package ar.com.noaa.api.boyas.entities;
 import java.util.*;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -13,22 +15,32 @@ public class Boya {
     @Column(name = "boya_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer boyaId;
-    @Column(name = "color_luz")
-    private ColorLuzEnum colorLuz;
+    @Column(name = "color_luz_id")
+    private ColorLuzEnum colorLuzId;
     @Column(name = "latitud_instalacion")
     private double latitudInstalacion;
     @Column(name = "longitud_instalacion")
     private double longitudInstalacion;
-    @OneToMany(mappedBy = "boya", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "boya", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnore
     private List<Muestra> muestras = new ArrayList<>();
+
+    // public ColorLuzEnum obtenerColor(double nivelMar) {
+    // colorLuz = ColorLuzEnum.AZUL;
+    // if (Math.abs(nivelMar) >= 100 || Math.abs(nivelMar) <= -100) {
+    // return colorLuz = ColorLuzEnum.ROJO;
+    // } else if (Math.abs(nivelMar) >= 50 || Math.abs(nivelMar) <= -50) {
+    // return colorLuz = ColorLuzEnum.AMARILLO;
+    // }
+    // return colorLuz;
+    // }
 
     public enum ColorLuzEnum {
         ROJO(1), AMARILLO(2), VERDE(3), AZUL(4);
 
         private final Integer value;
 
-        // NOTE: Enum constructor tiene que estar en privado
         private ColorLuzEnum(Integer value) {
             this.value = value;
         }
@@ -57,12 +69,12 @@ public class Boya {
         this.boyaId = boyaId;
     }
 
-    public ColorLuzEnum getColorLuz() {
-        return colorLuz;
+    public ColorLuzEnum getColorLuzId() {
+        return colorLuzId;
     }
 
-    public void setColorLuz(ColorLuzEnum colorLuz) {
-        this.colorLuz = colorLuz;
+    public void setColorLuzId(ColorLuzEnum colorLuzId) {
+        this.colorLuzId = colorLuzId;
     }
 
     public double getLatitudInstalacion() {

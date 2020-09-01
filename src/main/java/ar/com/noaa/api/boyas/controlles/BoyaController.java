@@ -7,7 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import ar.com.noaa.api.boyas.entities.Boya;
-import ar.com.noaa.api.boyas.models.response.BoyaResponse;
+import ar.com.noaa.api.boyas.models.request.ActualizColorLuzBoya;
+import ar.com.noaa.api.boyas.models.request.BoyaRequest;
 import ar.com.noaa.api.boyas.models.response.GenericResponse;
 import ar.com.noaa.api.boyas.services.BoyaService;
 
@@ -17,8 +18,8 @@ public class BoyaController {
     BoyaService boyaService;
 
     @PostMapping("/boyas")
-    public ResponseEntity<GenericResponse> crearBoya(@RequestBody Boya boya) {
-        boyaService.crearBoya(boya);
+    public ResponseEntity<GenericResponse> crearBoya(@RequestBody BoyaRequest boyaRequest) {
+        Boya boya = boyaService.crearBoya(boyaRequest.longitudInstalacion, boyaRequest.latitudInstalacion);
 
         GenericResponse r = new GenericResponse();
         r.isOk = true;
@@ -28,21 +29,33 @@ public class BoyaController {
     }
 
     @GetMapping("/boyas")
-    public ResponseEntity<List<Boya>> listarCategoria() {
-        return ResponseEntity.ok(boyaService.obtenerBoyas());
+    public ResponseEntity<List<Boya>> listarBoyas() {
+        List<Boya> boyas = boyaService.obtenerBoyas();
+        return ResponseEntity.ok(boyas);
     }
 
     @GetMapping("/boyas/{id}")
-    ResponseEntity<BoyaResponse> buscarPorIdBoya(@PathVariable Integer id) {
+    ResponseEntity<Boya> buscarPorIdBoya(@PathVariable Integer id) {
         Boya boya = boyaService.buscarPorId(id);
+        return ResponseEntity.ok(boya);
+    }
 
-        BoyaResponse bGR = new BoyaResponse();
-        bGR.id = boya.getBoyaId();
-        bGR.colorLuz = boya.getColorLuz();
-        bGR.latitudInstalacion = boya.getLatitudInstalacion();
-        bGR.longitudInstalacion = boya.getLongitudInstalacion();
+    @PutMapping("/boyas/{id}")
+    ResponseEntity<GenericResponse> actualizarBoyaPorId(@PathVariable Integer id,
+            @RequestBody ActualizColorLuzBoya colorLuzAct) {
 
-        return ResponseEntity.ok(bGR);
+        Boya boyaActualizada = boyaService.actualizarBoya(id, colorLuzAct.color);
+
+        if (boyaActualizada == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        GenericResponse r = new GenericResponse();
+        r.isOk = true;
+        r.message = "Color luz actualizado con éxito";
+        r.id = boyaActualizada.getBoyaId();
+
+        return ResponseEntity.ok(r);
     }
 
 }

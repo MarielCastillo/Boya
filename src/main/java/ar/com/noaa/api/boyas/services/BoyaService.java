@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.com.noaa.api.boyas.entities.Boya;
-import ar.com.noaa.api.boyas.entities.Boya.ColorLuzEnum;
 import ar.com.noaa.api.boyas.repos.BoyaRepository;
 
 @Service
@@ -36,9 +35,9 @@ public class BoyaService {
             return null;
     }
 
-    public Boya actualizarBoya(Integer id, ColorLuzEnum colorLuzId) {
+    public Boya actualizarBoya(Integer id, String colorLuz) {
         Boya boya = buscarPorId(id);
-        boya.setColorLuzId(colorLuzId);
+        boya.setColorLuz(colorLuz);
         repoBoya.save(boya);
         return boya;
     }

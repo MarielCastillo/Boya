@@ -21,15 +21,6 @@ public class Muestra {
     private double latitud;
     @Column(name="nivel_mar")
     private double nivelMar;
-    // Altura al nivel del mar: double, número que especifica a qué nivel del mar está la boya en
-    // METROS. Ej 0 = significa que está a 0 metros del nivel del mar. -10 metros significa que esta
-    // “hundida” -10 metros y un valor de 20ms es que esta 20 metros arriba del nivel del mar.
-
-    // public void infoColor(double metros){
-    //     if(this.nivelMar > metros &&  this.nivelMar < metros){
-
-    //     }
-    // }
 
     public Integer getMuestraId() {
         return muestraId;

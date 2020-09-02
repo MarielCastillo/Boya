@@ -36,8 +36,8 @@ public class BoyaController {
 
     @GetMapping("/boyas/{id}")
     ResponseEntity<Boya> buscarPorIdBoya(@PathVariable Integer id) {
-        Boya boya = boyaService.buscarPorId(id);
-        return ResponseEntity.ok(boya);
+        Boya boyas = boyaService.buscarPorId(id);
+        return ResponseEntity.ok(boyas);
     }
 
     @PutMapping("/boyas/{id}")

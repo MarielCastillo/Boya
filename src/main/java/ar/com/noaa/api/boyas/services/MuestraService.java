@@ -1,6 +1,6 @@
 package ar.com.noaa.api.boyas.services;
 
-import java.util.Date;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,8 @@ public class MuestraService {
     @Autowired
     BoyaService boyaService;
 
-    public Muestra regristroMuestra(Integer boyaId, Date horario, String matricula, double latitud, double longitud, double nivelMar) {
+    public Muestra regristroMuestra(Integer boyaId, Date horario, String matricula, double latitud, double longitud,
+            double nivelMar) {
         Boya boya = boyaService.buscarPorId(boyaId);
         Muestra muestra = new Muestra();
         muestra.setBoya(boya);
@@ -29,5 +30,9 @@ public class MuestraService {
         boya.setColorLuz(boya.obtenerColor(nivelMar));
         repoMuestra.save(muestra);
         return muestra;
+    }
+
+    public List<Muestra> obtenerMuestras() {
+        return repoMuestra.findAll();
     }
 }

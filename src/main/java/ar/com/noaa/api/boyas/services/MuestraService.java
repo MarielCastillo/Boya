@@ -19,6 +19,7 @@ public class MuestraService {
 
     public Muestra regristroMuestra(Integer boyaId, Date horario, String matricula, double latitud, double longitud,
             double nivelMar) {
+
         Boya boya = boyaService.buscarPorId(boyaId);
         Muestra muestra = new Muestra();
         muestra.setBoya(boya);
@@ -34,5 +35,18 @@ public class MuestraService {
 
     public List<Muestra> obtenerMuestras() {
         return repoMuestra.findAll();
+    }
+
+    public Muestra obtenerPorId(Integer id) {
+        Optional<Muestra> opMuestra = repoMuestra.findById(id);
+
+        if (opMuestra.isPresent())
+            return opMuestra.get();
+        else
+            return null;
+    }
+
+    public void grabar(Muestra muestra) {
+        repoMuestra.save(muestra);
     }
 }

@@ -18,8 +18,12 @@ public class BoyaService {
         Boya boya = new Boya();
         boya.setLongitudInstalacion(longitudInstalacion);
         boya.setLatitudInstalacion(latitudInstalacion);
-        repoBoya.save(boya);
+        guardarBoya(boya);
         return boya;
+    }
+
+    public void guardarBoya(Boya boya){
+        repoBoya.save(boya);
     }
 
     public List<Boya> obtenerBoyas() {

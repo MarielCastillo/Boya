@@ -33,10 +33,6 @@ public class MuestraService {
         return muestra;
     }
 
-    public List<Muestra> obtenerMuestras() {
-        return repoMuestra.findAll();
-    }
-
     public Muestra obtenerPorId(Integer id) {
         Optional<Muestra> opMuestra = repoMuestra.findById(id);
 
@@ -46,7 +42,21 @@ public class MuestraService {
             return null;
     }
 
+    public List<Muestra> listarMuestrasPorBoya(Integer idBoya) {
+        Boya boya = boyaService.buscarPorId(idBoya);
+        return boya.getMuestras();
+    }
+
     public void grabar(Muestra muestra) {
         repoMuestra.save(muestra);
+    }
+
+    public Muestra resetearColorPorMuestra(Integer id) {
+        Muestra muestra = obtenerPorId(id);
+        Boya boya = boyaService.buscarPorId(muestra.getBoya().getBoyaId());
+        boya.setColorLuz("AZUL");
+        boyaService.guardarBoya(boya);
+        grabar(muestra);
+        return muestra;
     }
 }

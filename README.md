@@ -2,15 +2,15 @@
 
 🚀 API Rest BOYAS: Sistema de geolocalización de boyas que devuelve una muestra con el estado actual de la boya.
 
-![](https://www.infodefensa.com/latam/images_cache/2019/06/15/boyaoceanografica-ebm-oc24-sembradoperu-jun2019-marinaguerraperu-01-520.jpg)
-
 📚 Framework: Spring Boot.
+
+🔧 Otros: JPA, Hibernate, Maven.
+
+![](https://i.ibb.co/g4wYnN6/boyaoceanografica.jpg)
 
 💾 Base de Datos: relacional MYSQL.
 
 ![](https://i.ibb.co/nBJyhRj/boyas-mysql.png)
-
-🔧 Otros: JPA, Hibernate, Maven.
 
 📋 Prueba API: Se utilizó Postman para probar la WEB API.
 

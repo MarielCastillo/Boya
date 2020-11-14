@@ -4,7 +4,7 @@
 
 📚 Framework: Spring Boot.
 
-🔧 Otros: JPA, Hibernate, Maven.
+🛠️ Otros: JPA, Hibernate, Maven.
 
 ![](https://i.ibb.co/g4wYnN6/boyaoceanografica.jpg)
 
